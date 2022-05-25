@@ -9,14 +9,24 @@ function App() {
     "자바스크립트 독학"
   ]);
   let likeList = titles.map((title) => 0);
-  let [likes, setLike] = useState(likeList);
+  const [likes, setLike] = useState(likeList);
+  const [modalState, setModal] = useState(true);
+  const changeModalTitle = (titlesItem, setTitleFunc) => (e) => {
+    let copiedTitles = [...titlesItem];
+    copiedTitles[0] = "여자코트 추천";
+    setTitleFunc(copiedTitles);
+  };
 
   return (
     <div className="App">
       {titles.map((title, index) => {
         return (
           <div className="list" key={index}>
-            <h4>
+            <h4
+              onClick={() => {
+                setModal(!modalState);
+              }}
+            >
               {titles[index]}
               <span
                 onClick={() => {
@@ -33,16 +43,22 @@ function App() {
           </div>
         );
       })}
-      <Modal titles={titles}></Modal>
+      {modalState ? (
+        <Modal
+          titles={titles[0]}
+          changeModalTitle={changeModalTitle(titles, setTitle)}
+        ></Modal>
+      ) : null}
     </div>
   );
 }
 
-function Modal({ titles }) {
+function Modal(props) {
   return (
     <div>
-      <h4>{titles}</h4>
+      <h4>{props.titles}</h4>
       <p>날짜</p>
+      <button onClick={props.changeModalTitle}>수정</button>
     </div>
   );
 }
