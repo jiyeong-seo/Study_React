@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useState } from "react";
 
-export default function App() {
+function App() {
   let [titles, setTitle] = useState([
     "남자코트 추천",
     "강남 우동맛집",
@@ -33,6 +33,18 @@ export default function App() {
           </div>
         );
       })}
+      <Modal titles={titles}></Modal>
     </div>
   );
 }
+
+function Modal({ titles }) {
+  return (
+    <div>
+      <h4>{titles}</h4>
+      <p>날짜</p>
+    </div>
+  );
+}
+
+export default App;
