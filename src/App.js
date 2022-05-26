@@ -32,7 +32,7 @@ function App() {
             >
               {titles[index]}
               <span
-                onClick={(e) => {
+                onClick={() => {
                   let copyLikes = [...likes];
                   copyLikes[index] = copyLikes[index] + 1;
                   setLike(copyLikes);
