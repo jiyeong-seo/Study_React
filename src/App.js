@@ -3,18 +3,20 @@ import { useState } from "react";
 
 function App() {
   let [titles, setTitle] = useState([
-    "남자코트 추천",
-    "강남 우동맛집",
+    "자바 독학",
+    "C언어 독학",
     "파이썬 독학",
     "자바스크립트 독학"
   ]);
   let likeList = titles.map((title) => 0);
   const [likes, setLike] = useState(likeList);
-  const [modalState, setModal] = useState(true);
-  const changeModalTitle = (titlesItem, setTitleFunc) => (e) => {
-    let copiedTitles = [...titlesItem];
-    copiedTitles[0] = "여자코트 추천";
-    setTitleFunc(copiedTitles);
+  const [modalState, setModalState] = useState(true);
+
+  const [modalTitle, setModalTitle] = useState("");
+  const changeTitle = (titles, setTitle) => (e) => {
+    let copiedTitles = [...titles];
+    copiedTitles[0] = "자바 독학 완료";
+    setTitle(copiedTitles);
   };
 
   return (
@@ -24,12 +26,13 @@ function App() {
           <div className="list" key={index}>
             <h4
               onClick={() => {
-                setModal(!modalState);
+                setModalTitle(title);
+                setModalState(!modalState);
               }}
             >
               {titles[index]}
               <span
-                onClick={() => {
+                onClick={(e) => {
                   let copyLikes = [...likes];
                   copyLikes[index] = copyLikes[index] + 1;
                   setLike(copyLikes);
@@ -39,14 +42,16 @@ function App() {
               </span>
               {likes[index]}
             </h4>
-            <p>5월 25일 발행</p>
+            <p>5월 n일 발행</p>
           </div>
         );
       })}
+
       {modalState ? (
         <Modal
-          titles={titles[0]}
-          changeModalTitle={changeModalTitle(titles, setTitle)}
+          titles={titles}
+          changeModalTitle={changeTitle(titles, setTitle)}
+          modalTitle={modalTitle}
         ></Modal>
       ) : null}
     </div>
@@ -56,7 +61,7 @@ function App() {
 function Modal(props) {
   return (
     <div>
-      <h4>{props.titles}</h4>
+      <h4>{props.modalTitle}</h4>
       <p>날짜</p>
       <button onClick={props.changeModalTitle}>수정</button>
     </div>
