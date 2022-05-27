@@ -83,7 +83,12 @@ function App() {
         }}
       />
       <button
-        onClick={() => {
+        onClick={(e) => {
+          if (inputValue === "") {
+            e.preventDefault();
+            return;
+          }
+
           let copiedTitles = [...titles];
           let copiedLikes = [...likes];
 
