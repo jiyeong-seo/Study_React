@@ -56,16 +56,18 @@ function App() {
             <p>5월 n일 발행</p>
             <button
               onClick={() => {
-                // 삭제시 likes state의 상태를 바꾸지 않는다면
-                // likes state인 배열에는 삭제된 목록의 likes값도 남아있는 것인가..?
                 let copiedTitles = [...titles];
                 let copiedLikes = [...likes];
 
                 copiedTitles.splice(index, 1);
                 copiedLikes.splice(index, 1);
                 setTitle(copiedTitles);
+                // setTitle 로 title state가 변경되어 목록이 다시 랜더링 될 때
+                // setLike()로 like state에서 삭제된 인덱스에 해당하는 부분을 삭제하지 않아도
+                // like 가 화면에 잘 출력되는 이유는..?
+                // -> 예상결과 : titles.map 이 재호출되며 목록이 생성될 때 likes의 원소에 해당하는 값이
+                // 순차적으로 출력되어 삭제된 목록의 like 값이 밀린 상태로 화면에 출력
                 setLike(copiedLikes);
-                console.log(likes);
               }}
             >
               삭제
