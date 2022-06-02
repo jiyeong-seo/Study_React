@@ -9,10 +9,6 @@ function App() {
     "자바스크립트 독학"
   ]);
 
-  // likeList는 titles state 가 변경될 때마다 바뀌지만
-  // likeList에 새로운 값이 할당될 때마다 likes 의 상태를 setLikes로
-  // 변경하지 않으니 아무 변화가 없는 것?
-  // likeList는 처음 전체 렌더링 될 때의 초기값일 뿐인건가..?
   let likeList = titles.map((title) => 0);
   const [likes, setLike] = useState(likeList);
   const [modalState, setModalState] = useState(true);
